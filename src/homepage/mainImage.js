@@ -23,13 +23,13 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: '6px',
     borderRadius: '6px',
     marginBottom: '20px',
-    borderWidth: '1px',
-    borderColor: 'white',
+    border: '1px solid white',
     textAlign: 'center',
+    textDecoration: 'none',
     '&:hover': {
       background: 'white',
       color:'black',
-      borderColor: 'black'
+      border: '1px solid black'
     }
   },
 }));
@@ -38,8 +38,7 @@ function MainImage() {
   const styles = useStyles()
   return(
     <div className={styles.image}>
-      <button className={styles.button}>VIEW OUR MENU</button>
-      {/* <a className={styles.button}>VIEW OUR MENU</a> */}
+      <a href='#' className={styles.button}>VIEW OUR MENU</a>
 
     </div>
   )
