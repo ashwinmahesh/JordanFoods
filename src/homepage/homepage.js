@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MainImage from './mainImage';
 import AboutFood from './AboutFood';
+import Location from './Location';
 
 
 const useStyles = makeStyles(theme => ({
@@ -29,6 +30,10 @@ function Homepage() {
         <p className={styles.sectionText}>ABOUT OUR FOOD</p>
       </div>
       <AboutFood/>
+      <div className={styles.section}>
+        <p className={styles.sectionText}>LOCATION</p>
+      </div>
+      <Location/>
     </div>
   )
 }

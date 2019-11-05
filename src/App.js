@@ -2,7 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Homepage from './homepage/homepage';
-import Header from './header/header'
+import Header from './header/header';
+import Footer from './header/footer';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <div className='wrapper'>
         <Header/>
         <Homepage/>
+        <Footer/>
         {/* <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
