@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import ribsImage from './images/ribs.jpg'
+import ribsImage from './images/ribs.jpg';
+import hotdogImage from './images/hotDog.jpg';
 
 const useStyles = makeStyles(theme => ({
   sectionWrapper:{
@@ -74,7 +75,7 @@ function AboutFood() {
     const smallText = "Most Unique Hot Dogs in Memphis! We serve hot dogs and smoked sausages topped with homemade ground beef and coleslaw. Will add more to this section + reword in the future. Lorum Ipsum Lorum Ipsum Lorum Ipsum Lorum Ipsum"
     return (
       <div className={styles.secondAbout}>
-        <img className={styles.imageStyle} src={ribsImage}></img>
+        <img className={styles.imageStyle} src={hotdogImage}></img>
         <div className={styles.textDiv}>
           <p className={styles.bigText}>{bigText}</p>
           <p className={styles.smallText}>{smallText}</p>
