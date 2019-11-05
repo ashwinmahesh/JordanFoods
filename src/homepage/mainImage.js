@@ -1,5 +1,5 @@
 import React from 'react';
-import bealeImage from './bealeImage2.jpg';
+import bealeImage from './images/bealeImage2.jpg';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({

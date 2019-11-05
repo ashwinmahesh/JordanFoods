@@ -1,3 +1,15 @@
+div.top{
+  background: rgb(145, 44, 44);
+  padding-top:20px;
+  padding-bottom:20px;
+}
+div.top p{
+  text-align: center;
+  color: white;
+  font-family: 'McLaren', cursive;
+  font-size:28pt;
+  margin: 0px;
+}
 div.bottom {
   display: flex;
   justify-content: space-evenly;
@@ -13,16 +25,4 @@ div.bottom a{
 div.bottom a:hover{
   color:rgb(53, 53, 175);
   /* color: orange; */
-}
-div.top{
-  background: rgb(145, 44, 44);
-  padding-top:20px;
-  padding-bottom:20px;
-}
-div.top p{
-  text-align: center;
-  color: white;
-  font-family: 'McLaren', cursive;
-  font-size:28pt;
-  margin: 0px;
 }
