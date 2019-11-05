@@ -62,6 +62,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 ### Deployment
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+https://medium.com/@WebDevRaj/deploy-a-react-app-on-heroku-the-right-way-e17333d29169
 
 ### `npm run build` fails to minify
 
