@@ -1,5 +1,6 @@
 .App {
   /* text-align: center; */
+  min-width: 900px;
   display: flex;
   justify-content: center;
   background-color: rgb(211, 211, 211);
@@ -25,6 +26,7 @@
 }
 
 div.wrapper {
+  /* min-width: 900px; */
   width: 900px;
   display:block;
   background: white;
