@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     background: 'none',
-    width: '250px',
+    width: '280px',
     fontSize: '16pt',
     color: 'white',
     paddingTop: '6px',
@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: '20px',
     borderWidth: '1px',
     borderColor: 'white',
+    textAlign: 'center',
     '&:hover': {
       background: 'white',
       color:'black',
@@ -38,6 +39,8 @@ function MainImage() {
   return(
     <div className={styles.image}>
       <button className={styles.button}>VIEW OUR MENU</button>
+      {/* <a className={styles.button}>VIEW OUR MENU</a> */}
+
     </div>
   )
 }
