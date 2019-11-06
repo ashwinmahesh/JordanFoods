@@ -5,7 +5,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function Template() {
+function Menu() {
   const styles = useStyles();
 
   return(
@@ -15,4 +15,4 @@ function Template() {
   )
 }
 
-export default Template;
+export default Menu;

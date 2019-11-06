@@ -74,7 +74,7 @@ function Location() {
         <div className={styles.hoursDiv}>
           <b><p>Hours:</p></b>
           {Object.keys(hours).map((day) => ( 
-            <p>{day}: {hours[day]['open']} - {hours[day]['close']}</p>
+            <p key={day}>{day}: {hours[day]['open']} - {hours[day]['close']}</p>
           ))}
         </div>
         <div className={styles.contactDiv}>

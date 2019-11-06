@@ -1,31 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 import Homepage from './homepage/homepage';
+import Menu from './menu/menu';
 import Header from './header/header';
 import Footer from './header/footer';
 
 function App() {
+  const [currentTab, changeTab] = useState('home');
+
+  var tabChangedFromHeader = (newTab) => {
+    changeTab(newTab);
+    console.log("Current Tab:", currentTab);
+  }
   return (
     <div className="App">
       <div className='wrapper'>
-        <Header/>
-        <Homepage/>
+        <Header tabChanged={tabChangedFromHeader}/>
+        {currentTab === 'home' ? <Homepage/> : null}
+        {currentTab === 'menu' ? <Menu/> : null}
+        {currentTab === 'about' ? <p>About</p> : null}
         <Footer/>
-        {/* <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header> */}
       </div>
     </div>
   );

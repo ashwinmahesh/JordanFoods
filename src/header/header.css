@@ -24,5 +24,6 @@ div.bottom a{
 }
 div.bottom a:hover{
   color:rgb(53, 53, 175);
+  cursor: pointer;
   /* color: orange; */
 }
