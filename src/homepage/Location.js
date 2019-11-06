@@ -65,7 +65,7 @@ function Location() {
 
   return(
     <div className={styles.sectionWrapper}>
-      <a href='https://google.com/maps'><img className={styles.mapImage} src={locationImage}></img></a>
+      <a href='https://google.com/maps'><img className={styles.mapImage} src={locationImage} alt='location'></img></a>
       <div className={styles.left}>
         <div className={styles.addressDiv}>
           <p>1 Beale Street</p>

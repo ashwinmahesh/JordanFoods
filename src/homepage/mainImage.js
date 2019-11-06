@@ -2,6 +2,10 @@ import React from 'react';
 import bealeImage from './images/bealeImage2.jpg';
 import { makeStyles } from '@material-ui/core/styles';
 
+type Props = {
+  changeTab: ()=>(void)
+}
+
 const useStyles = makeStyles(theme => ({
   image:{
     width: '900px',
@@ -29,17 +33,17 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       background: 'white',
       color:'black',
-      border: '1px solid black'
+      border: '1px solid black',
+      cursor: 'pointer'
     }
   },
 }));
 
-function MainImage() {
+function MainImage(props:Props) {
   const styles = useStyles()
   return(
     <div className={styles.image}>
-      <a href='#' className={styles.button}>VIEW OUR MENU</a>
-
+      <a className={styles.button} onClick={props.changeTab}>VIEW OUR MENU</a>
     </div>
   )
 }

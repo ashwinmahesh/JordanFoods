@@ -1,7 +1,11 @@
 import React from 'react';
 import './header.css'
 
-function Header(props) {
+type Props = {
+  tabChanged: (string)=>(void)
+}
+
+function Header(props: Props) {
   function switchToHome(){
     props.tabChanged('home')
   }
@@ -11,7 +15,7 @@ function Header(props) {
   function switchToAbout(){
     props.tabChanged('about')
   }
-  
+
   return(
     <div>
       <div className='top'>

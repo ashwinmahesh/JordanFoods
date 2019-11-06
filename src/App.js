@@ -16,7 +16,7 @@ function App() {
     <div className="App">
       <div className='wrapper'>
         <Header tabChanged={tabChangedFromHeader}/>
-        {currentTab === 'home' ? <Homepage/> : null}
+        {currentTab === 'home' ? <Homepage tabChanged={tabChangedFromHeader}/> : null}
         {currentTab === 'menu' ? <Menu/> : null}
         {currentTab === 'about' ? <p>About</p> : null}
         <Footer/>

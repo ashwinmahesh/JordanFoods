@@ -4,6 +4,9 @@ import MainImage from './mainImage';
 import AboutFood from './AboutFood';
 import Location from './Location';
 
+type Props = {
+  tabChanged: (string)=>(void)
+}
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -20,12 +23,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Homepage() {
+function Homepage(props: Props) {
   const styles = useStyles();
 
+  function changeTab() {
+    props.tabChanged('menu');
+  }
   return(
     <div>
-      <MainImage/>
+      <MainImage changeTab={changeTab}/>
       <div className={styles.section}>
         <p className={styles.sectionText}>ABOUT OUR FOOD</p>
       </div>

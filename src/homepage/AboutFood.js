@@ -61,7 +61,7 @@ function AboutFood() {
     const smallText = "Ribs and such that will make your mouth salivate. TBD Will rewrite this section. Lorum IpsumRibs and such that will make your mouth salivate. TBD Will rewrite this section. Lorum Ipsum";
     return (
       <div className={styles.firstAbout}>
-        <img className={styles.imageStyle} src={ribsImage}></img>
+        <img className={styles.imageStyle} src={ribsImage} alt='First Food'></img>
         <div className={styles.textDiv}>
           <p className={styles.bigText}>{bigText}</p>
           <p className={styles.smallText}>{smallText}</p>
@@ -75,7 +75,7 @@ function AboutFood() {
     const smallText = "Most Unique Hot Dogs in Memphis! We serve hot dogs and smoked sausages topped with homemade ground beef and coleslaw. Will add more to this section + reword in the future. Lorum Ipsum Lorum Ipsum Lorum Ipsum Lorum Ipsum"
     return (
       <div className={styles.secondAbout}>
-        <img className={styles.imageStyle} src={hotdogImage}></img>
+        <img className={styles.imageStyle} src={hotdogImage} alt='Second Food'></img>
         <div className={styles.textDiv}>
           <p className={styles.bigText}>{bigText}</p>
           <p className={styles.smallText}>{smallText}</p>
