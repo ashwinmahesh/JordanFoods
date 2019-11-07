@@ -1,0 +1,29 @@
+div.top{
+  background: rgb(145, 44, 44);
+  padding-top:20px;
+  padding-bottom:20px;
+}
+div.top p{
+  text-align: center;
+  color: white;
+  font-family: 'McLaren', cursive;
+  font-size:28pt;
+  margin: 0px;
+}
+div.bottom {
+  display: flex;
+  justify-content: space-evenly;
+  background: rgb(189, 111, 111);
+  padding-top:4px;
+  padding-bottom:4px;
+}
+div.bottom a{
+  text-decoration: none;
+  color:white;
+  font-size:18pt;
+}
+div.bottom a:hover{
+  color:rgb(53, 53, 175);
+  cursor: pointer;
+  /* color: orange; */
+}
