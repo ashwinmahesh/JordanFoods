@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server Side code for Jordan Foods",
+  "main": "server.js",
+  "scripts": {
+    "test": "serverTest",
+    "start": "node server.js",
+    "server": "node-env-run . --exec nodemon | pino-colada",
+    "dev": "run-p server start"
+  },
+  "author": "Ashwin Mahesh",
+  "license": "ISC",
+  "proxy": "http://localhost:8070",
+  "dependencies": {},
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-pino-logger": "^4.0.0",
+    "express-session": "^1.17.0",
+    "node-env-run": "^3.0.2",
+    "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5",
+    "pino-colada": "^1.5.0"
+  }
+}
