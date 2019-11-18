@@ -5,13 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "serverTest",
-    "start": "node server.js",
-    "server": "node-env-run . --exec nodemon | pino-colada",
-    "dev": "run-p server start"
+    "start": "nodemon | pino-colada"
   },
   "author": "Ashwin Mahesh",
   "license": "ISC",
-  "proxy": "http://localhost:8070",
   "dependencies": {},
   "devDependencies": {
     "body-parser": "^1.19.0",
