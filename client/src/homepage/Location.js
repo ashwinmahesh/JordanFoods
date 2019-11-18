@@ -63,12 +63,14 @@ function Location() {
     },
   };
 
+  const mapLink = 'https://www.google.com/maps/dir//Beale+St+%26+S+2nd+St,+Memphis,+TN+38103/@35.1399719,-90.0557014,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x87d57e97062c3979:0x52f2d60bf85c992e!2m2!1d-90.0535127!2d35.1399719!3e0'
+
   return(
     <div className={styles.sectionWrapper}>
-      <a href='https://google.com/maps'><img className={styles.mapImage} src={locationImage} alt='location'></img></a>
+      <a href={mapLink} target="_blank"><img className={styles.mapImage} src={locationImage} alt='location'></img></a>
       <div className={styles.left}>
         <div className={styles.addressDiv}>
-          <p>1 Beale Street</p>
+          <p>Beale St & S 2nd St</p>
           <p>Memphis, TN 38103</p>
         </div>
         <div className={styles.hoursDiv}>
@@ -80,7 +82,7 @@ function Location() {
         <div className={styles.contactDiv}>
           <b><p>Contact Us:</p></b>
           <p>(901) 361-2226</p>
-          <p>email@email.com</p>
+          <p>jdwight706@gmail.com</p>
         </div>
       </div>
     </div>

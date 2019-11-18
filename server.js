@@ -23,10 +23,6 @@ app.get('/test_route', (request, response) => {
   return response.json({message: 'Updated state message'})
 })
 
-// app.get('/login', (request, response) => {
-//   return response.json({success: 1, message: 'The test is successful'})
-// })
-
 app.listen(port, () => {
   console.log(`Server is listening on Port ${port}`)
 })

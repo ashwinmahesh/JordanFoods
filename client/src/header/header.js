@@ -5,17 +5,16 @@ import axios from 'axios';
 import {Link} from "react-router-dom";
 
 type Props = {
-  tabChanged?: (string)=>(void),
   showNavigation?: boolean
 }
 
 function Header(props: Props) {
-  function switchToHome(){
-    props.tabChanged('home')
-  }
-  function switchToMenu(){
-    props.tabChanged('menu')
-  }
+  // function switchToHome(){
+  //   props.tabChanged('home')
+  // }
+  // function switchToMenu(){
+  //   props.tabChanged('menu')
+  // }
   function switchToAbout(){
     // props.tabChanged('about')
     axios.get('/test_route')
