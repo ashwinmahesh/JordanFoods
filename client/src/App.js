@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
+
 import './App.css';
+
+
+
 import Homepage from './homepage/homepage';
 import Menu from './menu/menu';
 import Header from './header/header';
@@ -15,11 +23,39 @@ function App() {
   return (
     <div className="App">
       <div className='wrapper'>
-        <Header tabChanged={tabChangedFromHeader}/>
-        {currentTab === 'home' ? <Homepage tabChanged={tabChangedFromHeader}/> : null}
-        {currentTab === 'menu' ? <Menu/> : null}
-        {currentTab === 'about' ? <p>About</p> : null}
-        <Footer/>
+        <Router>
+
+          <Route exact path='/'>
+            <Header tabChanged={tabChangedFromHeader} showNavigation={true}/>
+            <Homepage />
+            <Footer/>
+          </Route>
+
+          <Route exact path='/menu'>
+            <Header tabChanged={tabChangedFromHeader} showNavigation={true}/>
+            <Menu/>
+            <Footer/>
+          </Route>
+
+          <Route exact path='/about'>
+            <Header tabChanged={tabChangedFromHeader} showNavigation={true}/>
+            <p>About</p>
+            <Footer/>
+          </Route>
+
+          <Route exact path='/admin/login'>
+            <Header />
+            <p>This is where the admin login will be</p>
+            <Footer/>
+          </Route>
+
+          <Route exact path='/admin'>
+            <Header />
+            <p>This is where the admin page will be</p>
+            <Footer/>
+          </Route>
+
+        </Router>
       </div>
     </div>
   );

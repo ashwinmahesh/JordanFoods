@@ -2,8 +2,11 @@ import React from 'react';
 import './header.css'
 import axios from 'axios';
 
+import {Link} from "react-router-dom";
+
 type Props = {
-  tabChanged: (string)=>(void)
+  tabChanged?: (string)=>(void),
+  showNavigation?: boolean
 }
 
 function Header(props: Props) {
@@ -26,11 +29,14 @@ function Header(props: Props) {
       <div className='top'>
         <p>Jordan's Hot and Cold Vending</p>
       </div>
-      <div className='bottom'>
-        <a onClick={switchToHome}>HOME</a>
-        <a onClick={switchToMenu}>MENU</a>
-        <a onClick={switchToAbout}>ABOUT</a>
-      </div>
+      {props.showNavigation  &&
+        <div className='bottom'>
+          <Link to='/'>HOME</Link>
+          <Link to='/menu'>MENU</Link>
+          <Link to='/about'>ABOUT</Link>
+        </div>
+      }
+      
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import bealeImage from './images/bealeImage2.jpg';
 import { makeStyles } from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
 
 type Props = {
   changeTab: ()=>(void)
@@ -43,7 +44,7 @@ function MainImage(props:Props) {
   const styles = useStyles()
   return(
     <div className={styles.image}>
-      <a className={styles.button} onClick={props.changeTab}>VIEW OUR MENU</a>
+      <Link className={styles.button} to='/menu'>VIEW OUR MENU</Link>
     </div>
   )
 }
