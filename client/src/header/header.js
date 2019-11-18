@@ -1,5 +1,6 @@
 import React from 'react';
 import './header.css'
+import axios from 'axios';
 
 type Props = {
   tabChanged: (string)=>(void)
@@ -13,7 +14,11 @@ function Header(props: Props) {
     props.tabChanged('menu')
   }
   function switchToAbout(){
-    props.tabChanged('about')
+    // props.tabChanged('about')
+    axios.get('/test_route')
+      .then( response => {
+        console.log("Received response:", response.data)
+      });
   }
 
   return(
