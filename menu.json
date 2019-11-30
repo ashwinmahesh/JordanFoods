@@ -1,0 +1,14 @@
+{
+  "Hot Dog": {
+    "price": "12.99",
+    "description": "Hello World",
+    "imagePath": "test.jpg",
+    "priority": "2"
+  },
+  "Smoked Ribs": {
+    "price": "12.99",
+    "description": "This is a rib",
+    "imagePath": "test.jpg",
+    "priority": "1"
+  }
+}

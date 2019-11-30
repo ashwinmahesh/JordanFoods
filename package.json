@@ -10,7 +10,10 @@
   "author": "Ashwin Mahesh",
   "license": "ISC",
   "dependencies": {
-    "mongoose": "^5.7.11"
+    "bcrypt": "^3.0.7",
+    "mongoose": "^5.7.11",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "body-parser": "^1.19.0",
