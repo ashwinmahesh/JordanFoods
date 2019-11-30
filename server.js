@@ -10,6 +10,9 @@ const pino = require('express-pino-logger')();
 const fs = require('fs');
 const initializePassport = require('./passport-config');
 const passport = require('passport');
+const bcrypt = require('bcrypt');
+
+const userInfo = require('./userInfo.json');
 
 const app = express();
 
@@ -18,9 +21,6 @@ initializePassport(passport,
 )
 
 const port = process.env.PORT || 8000
-
-const testUsername = 'ashwin'
-const testPassword = 'password'
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -40,14 +40,13 @@ app.get('/test_route', (request, response) => {
   return response.json({message: 'Updated state message'})
 });
 
-app.post('/processLogin', (request, response) => {
-// app.post('/processLogin', passport.authenticate('local', {}))
-  const {username, password} = request.body;
-  console.log(`Username: ${username}, Password: ${password}`)
-  if(username != testUsername || password != testPassword) {
-    return response.json({success: 0, message: 'Login unsuccessful'});
-  }
-  return response.json({success: 1, message: 'Login successful'});
+
+app.post('/processLogin', (request, response, next) => {
+  passport.authenticate('local', function(error, user, info) {
+    if(error) return next(error)
+    if(!user) return response.json({success: 0, message: 'Login unsuccessful'})
+    return response.json({success: 1, message: 'Login successful', id: user.id})
+  })(request, response, next);
 })
 
 app.get('/fetchMenu', (request, response) => {
@@ -82,11 +81,19 @@ function jsonReader(filePath, callback) {
 }
 
 function fetchUserInfo(username) {
-  //Read from a file, hash PW
-  if(username !== 'ashwin') {
-    return false;
-  }
-  return {username: 'ashwin', password: 'password', id: 'abxDF1'}
+  if(username !== userInfo.username) return false;
+  return userInfo;
+}
+
+function hashPassword(input) {
+  bcrypt.hash(input, 10, (err, hash) => {
+    if(err) {
+      console.log("Error")
+      return err;
+    }
+    console.log("HashedPW:", hash)
+    return hash
+  })
 }
 
 app.listen(port, () => {
