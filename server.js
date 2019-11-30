@@ -1,10 +1,21 @@
+if(process.env.NODE_ENV != 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const bodyParser = require('body-parser')
 const expressSession = require('express-session');
 const path = require('path')
 const pino = require('express-pino-logger')();
 const fs = require('fs');
+const initializePassport = require('./passport-config');
+const passport = require('passport');
+
 const app = express();
+
+initializePassport(passport,
+  email => fetchUserInfo(email)
+)
 
 const port = process.env.PORT || 8000
 
@@ -14,12 +25,14 @@ const testPassword = 'password'
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(expressSession({
-  secret:'YouWillNotGuessThis',
-  resave:true,
-  saveUninitialized:true,
+  secret:process.env.SESSION_SECRET,
+  resave:false,
+  saveUninitialized:false,
   cookie:{maxAge:1*24*60*60*1000}
 }));
 app.use(pino)
+app.use(passport.initialize());
+app.use(passport.session());
 // app.use('/dist', express.static(path.join(__dirname, './client/dist/')));
 
 app.get('/test_route', (request, response) => {
@@ -65,6 +78,14 @@ function jsonReader(filePath, callback) {
       return callback(false);
     }
   })
+}
+
+function fetchUserInfo(username) {
+  //Read from a file, hash PW
+  if(username !== 'ashwin') {
+    return false;
+  }
+  return {username: 'ashwin', password: 'password', id: 'abxDF1'}
 }
 
 app.listen(port, () => {
