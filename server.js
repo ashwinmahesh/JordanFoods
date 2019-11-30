@@ -41,6 +41,7 @@ app.get('/test_route', (request, response) => {
 });
 
 app.post('/processLogin', (request, response) => {
+// app.post('/processLogin', passport.authenticate('local', {}))
   const {username, password} = request.body;
   console.log(`Username: ${username}, Password: ${password}`)
   if(username != testUsername || password != testPassword) {

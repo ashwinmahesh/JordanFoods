@@ -87,6 +87,7 @@ function AdminLogin() {
           variant="outlined"
           onChange={handleUsernameChange}
           name='username'
+          value={username}
         />
         <TextField
           required
@@ -99,6 +100,7 @@ function AdminLogin() {
           variant="outlined"
           name='password'
           onChange={handlePasswordChange}
+          value={password}
         />
         <div className={styles.buttonDivStyle}>
         <Button variant="contained" color="primary" className={styles.buttonStyle} onClick={loginPressed}>
