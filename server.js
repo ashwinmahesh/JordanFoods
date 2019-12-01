@@ -133,11 +133,40 @@ app.get('/fetchImage/:imagePath', (request, response) => {
 })
 
 
-app.post('/editMenu', (request, response) => {
-  //This request.user is always there, for easy authentication
-  // console.log(request.user)
-  // const menuItem = request.body.item;
-  //Authenticate
+app.post('/editItem/withoutImage/:originalName', (request, response) => {
+  const originalName = request.params.originalName;
+  console.log("originalName:", originalName)
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+
+
+  jsonReader('./menu.json', (data) => {
+    if(!(originalName in data))
+      return response.json({success: 0, message: 'Item not in menu.'})
+    const information = request.body;
+    console.log(information)
+
+    if(information.name === originalName) {
+      data[originalName].description = information.description;
+      data[originalName].price = information.price;
+    } else {
+      const imagePath = data[originalName].imagePath;
+      delete data[originalName];
+      data[information.name] = {
+        price: information.price,
+        description: information.description,
+        imagePath: imagePath
+      }
+    }
+
+    fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
+      if(err){
+        return response.json({success: 0, message: 'Error writing to edited to storage.'})
+      }
+      else return response.json({success: 1, message: `Successfully edited ${originalName} from menu`, item: originalName});
+    });
+  })
 })
 
 app.post('/removeItem', (request, response) => {

@@ -36,7 +36,6 @@ const useStyles = makeStyles(theme => ({
   },
   inputStyle: {
     width: '450px',
-    // background: 'white',
   },
   buttonDivStyle: {
     textAlign: 'center',
@@ -216,17 +215,11 @@ function Admin() {
   function editItemCallback(editItemName) {
     changeEditItem(editItemName);
 
-    console.log("Editing item:", editItemName)
-    console.log(menuItems[editItemName])
-    console.log(menuItems)
-
     changeImageName(menuItems[editItemName].imagePath)
     changeItemName(editItemName);
     changeDescription(menuItems[editItemName].description)
     changePrice(menuItems[editItemName].price)
     changeImage(true);
-
-    console.log("ImageName:", imageName)
 
     changeEditModalState(true);
   }
@@ -239,8 +232,47 @@ function Admin() {
   }
 
   async function confirmEdit() {
-    const { data }= axios.post('/editItem', {});
-    console.log("Data:", data)
+    changeNameErr(itemName === '');
+    changePriceErr(price === '')
+    changeDescErr(description === '');
+    changeImgErr(image === false);
+    
+    let hasErr = false;
+    if(itemName === '' || price === '' || description === '' || image === false){
+      hasErr = true;
+      return;
+    }
+    if(hasErr === false){
+      let data;
+
+      if(imageName === menuItems[editItem].imagePath) {
+        const sendData = { name: itemName, price, description }
+        const response = await axios.post(`/editItem/withoutImage/${editItem}`, sendData);
+        data = response.data;
+      }
+      else {
+        let sendData = new FormData();
+
+        sendData.append('image', image)
+        sendData.append('name', itemName)
+        sendData.append('price', price)
+        sendData.append('description', description);
+
+        const response = await axios.post(`/editItem/withImage/${editItem}`, sendData);
+        data = response.data;
+
+        console.log(data);
+      }
+
+      if(data.success === 1) {
+        resetInputs();
+        changeEditModalState(false);
+        fetchMenu();
+      }
+      else {
+        showMainErr(true);
+      }
+    }
   }
 
   const items = Object.keys(menuItems).map((key, index) => {
@@ -319,7 +351,7 @@ function Admin() {
     return (
       <Modal open={showEditModal} style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
         <div style={modalStyle} className={styles.modalStyle}>
-          <p className={styles.headerText}>Edit Item</p>
+          <p className={styles.headerText}>Edit {editItem}</p>
           { mainErr && <p className={styles.mainError}>There was an error completing this request.</p> }
           <TextField
           required
