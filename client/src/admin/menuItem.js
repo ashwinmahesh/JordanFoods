@@ -7,7 +7,7 @@ type Props = {
   description: string,
   imagePath: string,
   price: string,
-  port: string
+  port: string,
   editItem: (itemName) => (void),
   removeItem: (itemName) => (void)
 }
