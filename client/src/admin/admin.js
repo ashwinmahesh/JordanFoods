@@ -226,7 +226,9 @@ function Admin() {
 
   async function removeItem(name) {
     const { data } = await axios.post('/removeItem', {name});
-    fetchMenu();
+    if(data.success === 1) {
+      fetchMenu();
+    }
   }
 
   async function confirmEdit() {
