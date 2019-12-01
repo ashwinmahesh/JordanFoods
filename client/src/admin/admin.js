@@ -162,7 +162,6 @@ function Admin() {
       const { data } = await axios.post('/addItem', sendData)
       console.log(data)
 
-      data.success = -1;
       if(data.success === 1) {
         resetInputs();
         changeOverlayState(false);
