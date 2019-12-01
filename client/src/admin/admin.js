@@ -231,14 +231,21 @@ function Admin() {
     changeEditModalState(true);
   }
 
+  async function removeItem(name) {
+    console.log("Removing item:", name)
+    const { data } = await axios.post('/removeItem', {name});
+    console.log(data);
+    fetchMenu();
+  }
+
   async function confirmEdit() {
-    const data = axios.post('/editItem', {});
+    const { data }= axios.post('/editItem', {});
     console.log("Data:", data)
   }
 
   const items = Object.keys(menuItems).map((key, index) => {
     const item = menuItems[key]
-    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath} editItem={editItemCallback}></MenuItem>
+    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath} editItem={editItemCallback} removeItem={removeItem}></MenuItem>
   })
 
   function renderModal() {

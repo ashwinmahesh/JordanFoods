@@ -140,6 +140,25 @@ app.post('/editMenu', (request, response) => {
   //Authenticate
 })
 
+app.post('/removeItem', (request, response) => {
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+
+  jsonReader('./menu.json', (data) => {
+    if(!(request.body.name in data)) {
+      return response.json({success: 0, message: 'Item not in menu.'})
+    }
+    delete data[request.body.name];
+    fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
+      if(err){
+        return response.json({success: 0, message: 'Error writing to new item to storage.'})
+      }
+      else return response.json({success: 1, message: 'Successfully removed item from menu', item: request.body.name});
+    })
+  })
+})
+
 //Helper functions
 function jsonReader(filePath, callback) {
   fs.readFile(filePath, (error, fileData) => {
