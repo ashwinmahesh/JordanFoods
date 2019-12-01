@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 type Props = {
   name: string,
   description: string,
-  image: string,
+  imagePath: string,
   price: string
 }
 
@@ -49,7 +49,7 @@ function MenuItem(props: Props) {
 
   return(
     <div className={styles.itemWrapper}>
-      <img src={props.image} className={styles.itemImage} alt={props.name}/>
+      <img src={`/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/>
       <div className={styles.left}>
         <div className={styles.leftText}>
           <p className={styles.bigText}>{props.name} <span>${props.price}</span></p>

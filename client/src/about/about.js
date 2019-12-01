@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     margin: '0px',
     marginTop: '15px',
-    marginBottom: '20px'
+    marginBottom: '20px',
+    fontFamily: 'McLaren, cursive'
   },
   subtext: {
     fontSize: '16pt',

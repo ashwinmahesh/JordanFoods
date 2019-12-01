@@ -134,7 +134,6 @@ app.get('/fetchImage/:imagePath', (request, response) => {
   })
 })
 
-
 app.post('/editItem/withoutImage/:originalName', (request, response) => {
   const originalName = request.params.originalName;
   console.log("originalName:", originalName)

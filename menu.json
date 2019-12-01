@@ -3,5 +3,10 @@
     "price": "7.99",
     "description": "This is a delicious hotdog That is beneficial for consumption. It is known to provide very many health benefits, some of which include a satiated stomatch. Now with added flavor!\n",
     "imagePath": "1575193208284-hotDog.jpg"
+  },
+  "New Item": {
+    "price": "18.99",
+    "description": "Test item for the testing",
+    "imagePath": "1575239187288-ribs.jpg"
   }
 }
