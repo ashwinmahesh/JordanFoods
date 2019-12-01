@@ -55,11 +55,10 @@ function AdminLogin() {
 
   useEffect(() => {
     checkAuthentication();
-  })
+  }, [])
 
   async function loginPressed() {
     const { data } = await axios.post('/processLogin', {username, password})
-    console.log("Data:", data)
     if(data.success !== 1) changeError(true);
     else {
       changeError(false);

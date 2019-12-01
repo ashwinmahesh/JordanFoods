@@ -109,8 +109,6 @@ app.post('/addItem', upload.single('image'), (request, response) => {
   if(!checkAuthentication(request)) {
     return response.json({success: -1, message: 'User not authorized to perform this action'});
   }
-  console.log(request.body);
-  console.log(request.file.filename);
 
   jsonReader('./menu.json', (data) => {
     data[request.body['name']] = {
@@ -118,14 +116,23 @@ app.post('/addItem', upload.single('image'), (request, response) => {
       description: request.body['description'],
       imagePath: request.file.filename
     }
-    console.log("Data:", data)
     fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
       if(err){
-        console.log(`Error: ${err}`)
         return response.json({success: 0, message: 'Error writing to new item to storage.'})
       }
       else return response.json({success: 1, message: 'Successfully added item to menu'});
     })
+  })
+})
+
+app.get('/fetchImage/:imagePath', (request, response) => {
+  var imagePath = request.params.imagePath;
+  const sendPath = path.join(__dirname, `./images/${imagePath}`)
+  response.set({'Content-Type': 'image/png'});
+  return response.sendFile(sendPath, (err) => {
+    if(err){
+      console.log("There was an error. This file does not exist.");
+    }
   })
 })
 

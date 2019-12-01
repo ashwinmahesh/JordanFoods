@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import { Button, Modal, TextField } from '@material-ui/core';
+import { Button, Modal, TextField, Menu } from '@material-ui/core';
+import MenuItem from './menuItem'
 
 function getModalStyle() {
   const top = 50;
@@ -110,21 +111,16 @@ function Admin() {
   }
 
   function handleNameChange(event) {
-    console.log("new name:",event.target.value)
     changeItemName(event.target.value);
   }
   function handlePriceChange(event) {
-    console.log("new price:",event.target.value)
     changePrice(event.target.value);
   }
   function handleDescriptionChange(event) {
-    console.log("new description:",event.target.value)
     changeDescription(event.target.value);
   }
   function handleImageChange(event) {
-    console.log("new image:", event.target.files[0]);
     changeImage(event.target.files[0])
-    console.log(event.target.files[0].name)
   }
 
   function resetInputs() {
@@ -153,14 +149,12 @@ function Admin() {
       return;
     }
     if(hasErr === false){
-      console.log("Image", image)
       let sendData = new FormData();
       sendData.append('image', image)
       sendData.append('name', itemName)
       sendData.append('price', price)
       sendData.append('description', description);
       const { data } = await axios.post('/addItem', sendData)
-      console.log(data)
 
       if(data.success === 1) {
         resetInputs();
@@ -184,9 +178,10 @@ function Admin() {
     return image.name;
   }
 
-  const items = Object.keys(menuItems).map((key, index) => 
-    <p>{key} - {menuItems[key]['price']}: {menuItems[key]['description']}</p>
-  )
+  const items = Object.keys(menuItems).map((key, index) => {
+    const item = menuItems[key]
+    return <MenuItem name={key} price={item.price} description={item.description} imagePath={item.imagePath}></MenuItem>
+  })
 
   function renderModal() {
     return (
