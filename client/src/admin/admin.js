@@ -34,13 +34,29 @@ const useStyles = makeStyles(theme => ({
   },
   inputStyle: {
     width: '450px',
-    background: 'white',
+    // background: 'white',
   },
   buttonDivStyle: {
     textAlign: 'center',
     display: 'block',
     marginTop: '20px'
   },
+  imageName: {
+    display: 'inline-block',
+    width: '275px',
+    marginLeft: '20px',
+    fontStyle: 'italic'
+  },
+  uploadImageButton: {
+    marginTop: '10px'
+  },
+  imageErrorMsg: {
+    display: 'inline-block',
+    width: '275px',
+    marginLeft: '20px',
+    fontStyle: 'italic',
+    color: 'red'
+  }
 }));
 
 function Admin() {
@@ -53,6 +69,12 @@ function Admin() {
   const [itemName, changeItemName] = useState('');
   const [price, changePrice] = useState('');
   const [description, changeDescription] = useState('')
+  const [image, changeImage] = useState(false);
+
+  const [nameErr, changeNameErr] = useState(false);
+  const [priceErr, changePriceErr] = useState(false);
+  const [descErr, changeDescErr] = useState(false)
+  const [imgErr, changeImgErr] = useState(false)
 
   async function testAxios() {
     const {data} = await axios.get('/test_route');
@@ -74,7 +96,7 @@ function Admin() {
   }
 
   useEffect(() => {
-    checkAuthentication();
+    // checkAuthentication();
     fetchMenu();
   }, [])
 
@@ -95,20 +117,50 @@ function Admin() {
     console.log("new description:",event.target.value)
     changeDescription(event.target.value);
   }
+  function handleImageChange(event) {
+    console.log("new image:", event.target.files[0]);
+    changeImage(event.target.files[0])
+    console.log(event.target.files[0].name)
+  }
 
   function resetInputs() {
     changeItemName('');
     changeDescription('');
-    changePrice('')
+    changePrice('');
+    changeImage(false);
+
+    changeNameErr(false);
+    changePriceErr(false)
+    changeDescErr(false);
+    changeImgErr(false);
   }
 
   function createPressed() {
-    changeOverlayState(false);
-    resetInputs();
+    changeNameErr(itemName === '');
+    changePriceErr(price === '')
+    changeDescErr(description === '');
+    changeImgErr(image === false);
+    
+    let hasErr = false;
+    if(itemName === '' || price === '' || description === '' || image === false){
+      hasErr = true
+    }
+    if(hasErr === false){
+      changeOverlayState(false);
+      resetInputs();
+    }
+    
   }
   function cancelPressed() {
     changeOverlayState(false);
     resetInputs();
+  }
+
+  function truncatedFileName() {
+    if(image.name.length > 27) {
+      return image.name.substr(0, 27) + '...';
+    }
+    return image.name;
   }
 
   const items = Object.keys(menuItems).map((key, index) => 
@@ -122,6 +174,8 @@ function Admin() {
           <p className={styles.headerText}>Add Item</p>
           <TextField
           required
+          error={nameErr && itemName===''}
+          helperText='Food name is required.'
           id="outlined-required"
           label="Item Name"
           className={styles.inputStyle}
@@ -133,6 +187,8 @@ function Admin() {
         />
         <TextField
           required
+          error={priceErr && price===''}
+          helperText='Price is required (X.XX)'
           id="outlined-number"
           label="Price ($)"
           type="number"
@@ -147,6 +203,8 @@ function Admin() {
         />
         <TextField
           required
+          error={descErr && description===''}
+          helperText='Description of the food item. Also required'
           id="outlined-textarea"
           label="Description"
           placeholder="Description of Item"
@@ -157,8 +215,17 @@ function Admin() {
           value={description}
           onChange={handleDescriptionChange}
         />
+        <div className={styles.uploadImageButton}>
+          <Button variant='contained' component='label'>
+            Upload Image
+            <input type='file' style={{display: 'none'}} accept="image/*" name='image' onChange={handleImageChange}/>
+          </Button>
+          { image && <p className={styles.imageName}>{truncatedFileName()}</p> }
+          { imgErr && !image && <p className={styles.imageErrorMsg}>Image is required.</p>}
+        </div>
+        
         <div className={styles.buttonDivStyle}>
-          <Button variant="contained" className={styles.buttonStyle} onClick={createPressed}>CANCEL</Button>
+          <Button variant="contained" className={styles.buttonStyle} onClick={cancelPressed}>CANCEL</Button>
           <Button variant="contained" color="primary" className={styles.buttonStyle} onClick={createPressed}>CREATE</Button>
         </div>
         </div>
