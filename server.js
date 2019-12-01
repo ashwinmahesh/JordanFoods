@@ -31,10 +31,8 @@ app.use(expressSession({
   saveUninitialized:false,
   cookie:{
     maxAge:1*24*60*60*1000,
-    secure: false
   }
 }));
-app.set('trust proxy', 1);
 app.use(pino)
 app.use(passport.initialize());
 app.use(passport.session());

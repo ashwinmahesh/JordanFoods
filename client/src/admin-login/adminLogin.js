@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import bealeImage from './images/beale.jpg';
 import { CardContent, CardMedia, Card, TextField, Button } from '@material-ui/core';
@@ -53,15 +53,27 @@ function AdminLogin() {
   const [showError, changeError] = useState(false);
   const [redirect, changeRedirect] = useState(false);
 
+  useEffect(() => {
+    checkAuthentication();
+  })
+
   async function loginPressed() {
     const { data } = await axios.post('/processLogin', {username, password})
     console.log("Data:", data)
-    if(data.success != 1) changeError(true);
+    if(data.success !== 1) changeError(true);
     else {
       changeError(false);
       changeRedirect(true);
     }
   }
+
+  async function checkAuthentication() {
+    const { data } = await axios.get('/checkAuthentication');
+    if(data.success === 1) {
+      changeRedirect(true);
+    }
+  }
+
   function handleUsernameChange(event) {
     changeUsername(event.target.value);
   }

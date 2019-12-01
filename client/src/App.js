@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,19 +14,12 @@ import Footer from './header/footer';
 import AdminLogin from './admin-login/adminLogin';
 import Admin from './admin/admin';
 
-function App() {
-  const [currentTab, changeTab] = useState('home');
-
-  var tabChangedFromHeader = (newTab) => {
-    changeTab(newTab);
-    console.log("Current Tab:", currentTab);
-  }
-  
+function App() {  
   return (
     <div className="App">
       <div className='wrapper'>
         <Router>
-          <Header showNavigation={true}/>
+          <Header/>
           <Route exact path='/'>
             <Homepage />
           </Route>

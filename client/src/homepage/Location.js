@@ -67,7 +67,7 @@ function Location() {
 
   return(
     <div className={styles.sectionWrapper}>
-      <a href={mapLink} target="_blank"><img className={styles.mapImage} src={locationImage} alt='location'></img></a>
+      <a href={mapLink} target="_blank" rel="noopener noreferrer"><img className={styles.mapImage} src={locationImage} alt='location'></img></a>
       <div className={styles.left}>
         <div className={styles.addressDiv}>
           <p>Beale St & S 2nd St</p>
