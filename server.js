@@ -23,6 +23,7 @@ initializePassport(passport,
 )
 
 const port = process.env.PORT || 8000
+const root = require('path').join(__dirname, 'client', 'build')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,6 +39,7 @@ app.use(pino)
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('./images', express.static(path.join(__dirname, './images')));
+app.use(express.static(root));
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -235,10 +237,15 @@ app.post('/removeItem', (request, response) => {
   })
 })
 
-const root = require('path').join(__dirname, 'client', 'build')
-app.use(express.static(root));
-app.get("*", (req, res) => {
-    res.sendFile('index.html', { root });
+app.get('/portInfo', (request, response) => {
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'})
+  }
+  return response.json({success: 1, message: 'Successfully fetched port', port})
+})
+
+app.get("*", (request, response) => {
+    response.sendFile('index.html', { root });
 })
 
 //Helper functions

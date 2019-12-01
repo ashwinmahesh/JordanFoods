@@ -7,6 +7,7 @@ type Props = {
   description: string,
   imagePath: string,
   price: string,
+  port: string
   editItem: (itemName) => (void),
   removeItem: (itemName) => (void)
 }
@@ -76,7 +77,7 @@ function MenuItem(props: Props) {
 
   return(
     <div className={styles.itemWrapper}>
-      <a onClick={handleImageClick} className={styles.imageAnchor}><img src={`http://localhost:8000/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/></a>
+      <a onClick={handleImageClick} className={styles.imageAnchor}><img src={`http://localhost:${props.port}/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/></a>
       <div className={styles.left}>
         <div className={styles.leftText}>
           <p className={styles.bigText}>{props.name} <span>${props.price}<a onClick={handleRemoveClicked} className={styles.remove}>X</a></span></p>
