@@ -75,9 +75,11 @@ function MenuItem(props: Props) {
     }
   }
 
+  console.log("Props.port", props.port)
+
   return(
     <div className={styles.itemWrapper}>
-      <a onClick={handleImageClick} className={styles.imageAnchor}><img src={`http://localhost:${8080}/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/></a>
+      <a onClick={handleImageClick} className={styles.imageAnchor}><img src={`/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/></a>
       <div className={styles.left}>
         <div className={styles.leftText}>
           <p className={styles.bigText}>{props.name} <span>${props.price}<a onClick={handleRemoveClicked} className={styles.remove}>X</a></span></p>
