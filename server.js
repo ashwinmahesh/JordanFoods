@@ -237,13 +237,6 @@ app.post('/removeItem', (request, response) => {
   })
 })
 
-app.get('/portInfo', (request, response) => {
-  if(!checkAuthentication(request)) {
-    return response.json({success: -1, message: 'User not authorized to perform this action'})
-  }
-  return response.json({success: 1, message: 'Successfully fetched port', port})
-})
-
 app.get("*", (request, response) => {
     response.sendFile('index.html', { root });
 })

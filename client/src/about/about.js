@@ -58,7 +58,7 @@ function About() {
         <img className={styles.headshot} src={headshot1} alt='Headshot 1'/>
         <p className={styles.nameText}>Dwight Jordan</p>
         <p className={styles.description}>
-          Born and raised in Memphis, Dwight is a big fan of the culture and of Beale Street. Dwight is passionate about making his business, and has been doing it for a long time. His other interests include watching the Tennessee Titans, playing the guitar, and going Hiking
+          Born and raised in Memphis, Dwight is a big fan of the culture and of Beale Street. Dwight is passionate about making his business, and has been doing it for a long time. His other interests include watching the Tennessee Titans, playing the guitar, and going Hiking. Will update this info later.
         </p>
       </div>
     )
@@ -70,7 +70,7 @@ function About() {
         <img className={styles.headshot} src={headshot2} alt='Headshot 2'/>
         <p className={styles.nameText}>Mrs. Jordan</p>
         <p className={styles.description}>
-          Born and raised in Memphis, Dwight is a big fan of the culture and of Beale Street. Dwight is passionate about making his business, and has been doing it for a long time. His other interests include watching the Tennessee Titans, playing the guitar, and going Hiking
+          Born and raised in Memphis, Dwight is a big fan of the culture and of Beale Street. Dwight is passionate about making his business, and has been doing it for a long time. His other interests include watching the Tennessee Titans, playing the guitar, and going Hiking. Will update this info later.
         </p>
       </div>
     )

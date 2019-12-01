@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { Button, Modal, TextField } from '@material-ui/core';
 import MenuItem from './menuItem'
-import { setPriority } from 'os';
 
 function getModalStyle() {
   const top = 50;
@@ -117,8 +116,6 @@ function Admin() {
   const [editItem, changeEditItem] = useState('')
   const [showEditModal, changeEditModalState] = useState(false)
 
-  const [port, changePort] = useState('8000')
-
   async function checkAuthentication() {
     const { data } = await axios.get('/checkAuthentication');
     if(data.success === 0) {
@@ -126,12 +123,6 @@ function Admin() {
     }
   }
 
-  async function fetchPort() {
-    const { data } = await axios.get('/portInfo');
-    if(data.success === 1) {
-      changePort(data['port']);
-    }
-  }
   async function fetchMenu() {
     const { data } = await axios.get('/fetchMenu');
     if(data.success === 1) {
@@ -141,7 +132,6 @@ function Admin() {
 
   useEffect(() => {
     checkAuthentication();
-    fetchPort();
     fetchMenu();
   }, [])
 
@@ -285,7 +275,7 @@ function Admin() {
 
   const items = Object.keys(menuItems).map((key, index) => {
     const item = menuItems[key]
-    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath} editItem={editItemCallback} removeItem={removeItem} port={port}></MenuItem>
+    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath} editItem={editItemCallback} removeItem={removeItem}></MenuItem>
   })
 
   function renderModal() {

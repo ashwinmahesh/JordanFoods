@@ -7,7 +7,6 @@ type Props = {
   description: string,
   imagePath: string,
   price: string,
-  port: string,
   editItem: (itemName) => (void),
   removeItem: (itemName) => (void)
 }
@@ -74,8 +73,6 @@ function MenuItem(props: Props) {
       props.removeItem(props.name);
     }
   }
-
-  console.log("Props.port", props.port)
 
   return(
     <div className={styles.itemWrapper}>
