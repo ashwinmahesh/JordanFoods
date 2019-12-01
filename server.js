@@ -26,7 +26,6 @@ const port = process.env.PORT || 8000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.cookieParser('Secret12Kookie!'));
 app.use(expressSession({
   secret:process.env.SESSION_SECRET,
   resave:false,
@@ -234,6 +233,12 @@ app.post('/removeItem', (request, response) => {
       else return response.json({success: 1, message: 'Successfully removed item from menu', item: request.body.name});
     })
   })
+})
+
+const root = require('path').join(__dirname, 'client', 'build')
+app.use(express.static(root));
+app.get("*", (req, res) => {
+    res.sendFile('index.html', { root });
 })
 
 //Helper functions

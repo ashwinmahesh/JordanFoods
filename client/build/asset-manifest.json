@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.77265385.chunk.css",
+    "main.js": "/static/js/main.4c041977.chunk.js",
+    "main.js.map": "/static/js/main.4c041977.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.75cfc151.js",
+    "runtime-main.js.map": "/static/js/runtime-main.75cfc151.js.map",
+    "static/js/2.20398c1c.chunk.js": "/static/js/2.20398c1c.chunk.js",
+    "static/js/2.20398c1c.chunk.js.map": "/static/js/2.20398c1c.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.b803bfd27749f742e4a9eb444087cbb0.js": "/precache-manifest.b803bfd27749f742e4a9eb444087cbb0.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.77265385.chunk.css.map": "/static/css/main.77265385.chunk.css.map",
+    "static/media/beale.jpg": "/static/media/beale.ef4788ae.jpg",
+    "static/media/bealeImage2.jpg": "/static/media/bealeImage2.e4cc0cbe.jpg",
+    "static/media/headshot.jpg": "/static/media/headshot.293f9ff2.jpg",
+    "static/media/headshot2.jpg": "/static/media/headshot2.e859c72e.jpg",
+    "static/media/hotDog.jpg": "/static/media/hotDog.9845dcba.jpg",
+    "static/media/mapImage.png": "/static/media/mapImage.3c556f37.png",
+    "static/media/ribs.jpg": "/static/media/ribs.2cb131ff.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.75cfc151.js",
+    "static/js/2.20398c1c.chunk.js",
+    "static/css/main.77265385.chunk.css",
+    "static/js/main.4c041977.chunk.js"
+  ]
+}

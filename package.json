@@ -6,7 +6,8 @@
   "scripts": {
     "test": "serverTest",
     "startDev": "nodemon | pino-colada",
-    "start": "node server.js | pino-colada"
+    "start": "node server.js | pino-colada",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Ashwin Mahesh",
   "license": "ISC",
