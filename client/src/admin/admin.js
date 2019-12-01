@@ -199,9 +199,13 @@ function Admin() {
     return image.name;
   }
 
+  function editItem(itemName) {
+    console.log("Editing item:", itemName)
+  }
+
   const items = Object.keys(menuItems).map((key, index) => {
     const item = menuItems[key]
-    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath}></MenuItem>
+    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath} editItem={editItem}></MenuItem>
   })
 
   function renderModal() {

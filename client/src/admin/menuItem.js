@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+// import { Button } from '@material-ui/core';
 // import axios from 'axios';
 
 type Props = {
   name: string,
   description: string,
   imagePath: string,
-  price: string
+  price: string,
+  editItem: (itemName) => (void)
 }
 
 const useStyles = makeStyles(theme => ({
@@ -42,6 +44,12 @@ const useStyles = makeStyles(theme => ({
     fontStyle: 'italic',
     marginTop: '17px',
     width: '480px',
+  },
+  imageAnchor:{
+    // border: 'none'
+    '&:hover': {
+      cursor: 'pointer'
+    }
   }
 }));
 
@@ -56,7 +64,7 @@ function MenuItem(props: Props) {
   //   setImage(data['data'])
   // }
   function handleImageClick() {
-    console.log("Clicking on image")
+    props.editItem(props.name);
   }
 
   useEffect(() => {
@@ -64,7 +72,7 @@ function MenuItem(props: Props) {
   }, [])
   return(
     <div className={styles.itemWrapper}>
-      <img src={`http://localhost:8000/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/>
+      <a onClick={handleImageClick} className={styles.imageAnchor}><img src={`http://localhost:8000/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/></a>
       <div className={styles.left}>
         <div className={styles.leftText}>
           <p className={styles.bigText}>{props.name} <span>${props.price}</span></p>
