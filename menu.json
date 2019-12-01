@@ -13,5 +13,10 @@
     "price": "18.99",
     "description": "jkajnkasadkksdnadad",
     "imagePath": "1575186324432-Screen Shot 2019-04-24 at 3.32.37 PM.png"
+  },
+  "Automatic Reload": {
+    "price": "99.99",
+    "description": "This is to test automatic reloading",
+    "imagePath": "1575188987455-Screen Shot 2019-11-19 at 9.00.57 PM.png"
   }
 }
