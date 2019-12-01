@@ -1,12 +1,7 @@
 {
-  "Hot Dog 4": {
-    "price": "19.99",
-    "description": "This is a delicious hotdog That is beneficial for consumption. It is known to provide very many health benefits, some of which include a satiated stomatch. Now with added flavor!",
-    "imagePath": "1575192588884-testImage.png"
-  },
-  "Automatic Reload 2": {
-    "price": "99.99",
-    "description": "This is to test automatic reloading",
-    "imagePath": "1575192593804-testImage.png"
+  "Hot Dog": {
+    "price": "7.99",
+    "description": "This is a delicious hotdog That is beneficial for consumption. It is known to provide very many health benefits, some of which include a satiated stomatch. Now with added flavor!\n",
+    "imagePath": "1575193208284-hotDog.jpg"
   }
 }

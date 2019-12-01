@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "serverTest",
-    "start": "nodemon | pino-colada",
-    "startProd": "node server.js | pino-colada"
+    "startDev": "nodemon | pino-colada",
+    "start": "node server.js | pino-colada"
   },
   "author": "Ashwin Mahesh",
   "license": "ISC",
