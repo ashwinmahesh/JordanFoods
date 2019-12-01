@@ -96,12 +96,11 @@ function Admin() {
   }
 
   useEffect(() => {
-    // checkAuthentication();
+    checkAuthentication();
     fetchMenu();
   }, [])
 
   function addItemPressed() {
-    console.log("pressing")
     changeOverlayState(true);
   }
 
@@ -135,7 +134,7 @@ function Admin() {
     changeImgErr(false);
   }
 
-  function createPressed() {
+  async function createPressed() {
     changeNameErr(itemName === '');
     changePriceErr(price === '')
     changeDescErr(description === '');
@@ -143,11 +142,15 @@ function Admin() {
     
     let hasErr = false;
     if(itemName === '' || price === '' || description === '' || image === false){
-      hasErr = true
+      hasErr = true;
+      return;
     }
     if(hasErr === false){
-      changeOverlayState(false);
-      resetInputs();
+      // changeOverlayState(false);
+      console.log("Image", image)
+      const { data } = await axios.post('/addItem', {name: itemName, price, description, image});
+      console.log(data)
+      // resetInputs();
     }
     
   }

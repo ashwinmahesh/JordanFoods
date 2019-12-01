@@ -78,6 +78,14 @@ app.get('/fetchMenu', (request, response) => {
   })
 });
 
+app.post('/addItem', (request, response) => {
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+  console.log(request.body);
+  return response.json({success: 1, message: 'Successfully added item to menu'});
+})
+
 app.post('/editMenu', (request, response) => {
   //This request.user is always there, for easy authentication
   // console.log(request.user)
