@@ -293,6 +293,8 @@ function hashPassword(input) {
   })
 }
 
+console.log(hashPassword('memphisMade99!'))
+
 app.listen(port, () => {
   console.log(`Server is listening on Port ${port}`)
 })
