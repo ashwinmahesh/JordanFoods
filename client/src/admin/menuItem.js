@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
+// import axios from 'axios';
 
 type Props = {
   name: string,
@@ -47,20 +47,24 @@ const useStyles = makeStyles(theme => ({
 
 function MenuItem(props: Props) {
   const styles = useStyles();
-  const [image, setImage] = useState(false);
+  // const [image, setImage] = useState(false);
 
-  async function fetchImage() {
-    const data = await axios.get(`/fetchImage/${props.imagePath}`)
-    console.log(data)
-    setImage(data['data'])
+  // async function fetchImage() {
+  //   const data = await axios.get(`/fetchImage/${props.imagePath}`)
+  //   // setImage(data)
+  //   // console.log(data['data'])
+  //   setImage(data['data'])
+  // }
+  function handleImageClick() {
+    console.log("Clicking on image")
   }
 
   useEffect(() => {
-    fetchImage();
+    // fetchImage();
   }, [])
   return(
     <div className={styles.itemWrapper}>
-      <img src={props.image} className={styles.itemImage} alt={props.name}/>
+      <img src={`http://localhost:8000/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/>
       <div className={styles.left}>
         <div className={styles.leftText}>
           <p className={styles.bigText}>{props.name} <span>${props.price}</span></p>

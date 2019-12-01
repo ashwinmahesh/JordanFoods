@@ -128,7 +128,6 @@ app.post('/addItem', upload.single('image'), (request, response) => {
 app.get('/fetchImage/:imagePath', (request, response) => {
   var imagePath = request.params.imagePath;
   const sendPath = path.join(__dirname, `./images/${imagePath}`)
-  response.set({'Content-Type': 'image/png'});
   return response.sendFile(sendPath, (err) => {
     if(err){
       console.log("There was an error. This file does not exist.");

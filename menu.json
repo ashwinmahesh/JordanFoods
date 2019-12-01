@@ -1,12 +1,17 @@
 {
-  "New Item": {
-    "price": "9",
-    "description": "aksnasda",
-    "imagePath": "1575183151982-Screen Shot 2019-11-30 at 10.19.47 PM.png"
-  },
   "Adding": {
     "price": "9.99",
     "description": "kjanskada",
     "imagePath": "1575183248300-testImage.png"
+  },
+  "Hot Dog": {
+    "price": "9.99",
+    "description": "This is a delicious hotdog That is beneficial for consumption. It is known to provide very many health benefits, some of which include a satiated stomatch",
+    "imagePath": "1575186001125-Screen Shot 2019-04-22 at 8.01.53 PM.png"
+  },
+  "Another one": {
+    "price": "18.99",
+    "description": "jkajnkasadkksdnadad",
+    "imagePath": "1575186324432-Screen Shot 2019-04-24 at 3.32.37 PM.png"
   }
 }

@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: '5px'
   },
   pageWrapper: {
-    height: '75vh'
+    minHeight: '75vh'
   }
 }));
 

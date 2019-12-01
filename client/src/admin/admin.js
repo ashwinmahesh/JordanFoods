@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import { Button, Modal, TextField, Menu } from '@material-ui/core';
+import { Button, Modal, TextField } from '@material-ui/core';
 import MenuItem from './menuItem'
 
 function getModalStyle() {
@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     margin:'0px',
     textAlign: 'center',
-    color: 'rgb(145, 44, 44)'
+    color: 'rgb(145, 44, 44)',
+    fontFamily: 'McLaren, cursive'
   },
   inputStyle: {
     width: '450px',
@@ -61,6 +62,31 @@ const useStyles = makeStyles(theme => ({
   mainError: {
     fontStyle: 'italic',
     color: 'red'
+  },
+  pageWrapper: {
+    paddingLeft: '35px',
+    paddingRight: '35px',
+  },
+  pageHeader: {
+    fontSize: '20pt',
+    fontWeight: 'bold',
+    margin: '0px',
+    marginBottom: '5px',
+    textAlign: 'center',
+    marginTop: '15px',
+    fontFamily: 'McLaren, cursive'
+  },
+  addItemButton: {
+    width: '350px',
+    fontSize: '14pt',
+    marginBottom: '20px'
+  },
+  subtext: {
+    fontSize: '12pt',
+    fontStyle: 'italic',
+    margin: '0px',
+    marginBottom: '10px',
+    textAlign: 'center'
   }
 }));
 
@@ -81,11 +107,6 @@ function Admin() {
   const [descErr, changeDescErr] = useState(false)
   const [imgErr, changeImgErr] = useState(false)
   const [mainErr, showMainErr] = useState(false);
-
-  async function testAxios() {
-    const {data} = await axios.get('/test_route');
-    console.log(data);
-  }
 
   async function checkAuthentication() {
     const { data } = await axios.get('/checkAuthentication');
@@ -180,7 +201,7 @@ function Admin() {
 
   const items = Object.keys(menuItems).map((key, index) => {
     const item = menuItems[key]
-    return <MenuItem name={key} price={item.price} description={item.description} imagePath={item.imagePath}></MenuItem>
+    return <MenuItem key={key} name={key} price={item.price} description={item.description} imagePath={item.imagePath}></MenuItem>
   })
 
   function renderModal() {
@@ -251,11 +272,15 @@ function Admin() {
   }
 
   return(
-    <div>
+    <div className={styles.pageWrapper}>
       {renderModal()}
       { redirectToLogin && <Redirect to='/admin/login' /> }
+      <p className={styles.pageHeader}>Current Menu Items</p>
+      <p className={styles.subtext}>Click on an image to edit that item</p>
       {items}
-      <Button variant="contained" color="primary" className={styles.buttonStyle} onClick={addItemPressed}>Add Item</Button>
+      <div className={styles.buttonDivStyle}>
+        <Button variant="contained" color="primary" className={styles.addItemButton} onClick={addItemPressed}>Add Item</Button>
+      </div>
     </div>
   )
 }
