@@ -38,9 +38,6 @@ app.use(pino)
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('./images', express.static(path.join(__dirname, './images')));
-// app.use('/dist', express.static(path.join(__dirname, './client/dist/')));
-
-
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -136,11 +133,106 @@ app.get('/fetchImage/:imagePath', (request, response) => {
 })
 
 
-app.post('/editMenu', (request, response) => {
-  //This request.user is always there, for easy authentication
-  // console.log(request.user)
-  // const menuItem = request.body.item;
-  //Authenticate
+app.post('/editItem/withoutImage/:originalName', (request, response) => {
+  const originalName = request.params.originalName;
+  console.log("originalName:", originalName)
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+
+  jsonReader('./menu.json', (data) => {
+    if(!(originalName in data))
+      return response.json({success: 0, message: 'Item not in menu.'})
+    const information = request.body;
+
+    if(information.name === originalName) {
+      data[originalName].description = information.description;
+      data[originalName].price = information.price;
+    } else {
+      const imagePath = data[originalName].imagePath;
+      delete data[originalName];
+      data[information.name] = {
+        price: information.price,
+        description: information.description,
+        imagePath: imagePath
+      }
+    }
+
+    fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
+      if(err){
+        return response.json({success: 0, message: 'Error writing to edited to storage.'})
+      }
+      else return response.json({success: 1, message: `Successfully edited ${originalName} from menu`, item: originalName});
+    });
+  })
+})
+
+app.post('/editItem/withImage/:originalName', upload.single('image'), (request, response) => {
+  const originalName = request.params.originalName;
+  console.log("originalName:", originalName)
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+
+  jsonReader('./menu.json', (data) => {
+    if(!(originalName in data))
+      return response.json({success: 0, message: 'Item not in menu.'})
+    const information = request.body;
+
+    const originalImagePath = data[originalName].imagePath;
+    fs.unlink(`./images/${originalImagePath}`, (err) => {
+      if(err) {
+        console.log("Error deleting file", originalImagePath)
+      }
+    })
+    if(information.name === originalName) {
+      data[originalName].description = information.description;
+      data[originalName].price = information.price;
+      data[originalName].imagePath = request.file.filename;
+
+    } else {
+      delete data[originalName];
+      data[information.name] = {
+        price: information.price,
+        description: information.description,
+        imagePath: request.file.filename
+      }
+    }
+    fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
+      if(err){
+        return response.json({success: 0, message: 'Error writing to edited to storage.'})
+      }
+      else return response.json({success: 1, message: `Successfully edited ${originalName} from menu`, item: originalName});
+    });
+  })
+});
+
+
+app.post('/removeItem', (request, response) => {
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+
+  jsonReader('./menu.json', (data) => {
+    if(!(request.body.name in data)) {
+      return response.json({success: 0, message: 'Item not in menu.'})
+    }
+    const imagePath = data[request.body.name].imagePath;
+
+    fs.unlink(`./images/${imagePath}`, (err) => {
+      if(err) {
+        console.log("Error deleting file", originalImagePath)
+      }
+    })
+
+    delete data[request.body.name];
+    fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
+      if(err){
+        return response.json({success: 0, message: 'Error writing to new item to storage.'})
+      }
+      else return response.json({success: 1, message: 'Successfully removed item from menu', item: request.body.name});
+    })
+  })
 })
 
 //Helper functions

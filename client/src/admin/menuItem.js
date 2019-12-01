@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-// import { Button } from '@material-ui/core';
-// import axios from 'axios';
+
 
 type Props = {
   name: string,
   description: string,
   imagePath: string,
   price: string,
-  editItem: (itemName) => (void)
+  editItem: (itemName) => (void),
+  removeItem: (itemName) => (void)
 }
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +46,14 @@ const useStyles = makeStyles(theme => ({
     width: '480px',
   },
   imageAnchor:{
-    // border: 'none'
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  },
+  remove: {
+    fontSize: '12',
+    color: 'rgb(145, 44, 44)',
+    marginLeft: '10px',
     '&:hover': {
       cursor: 'pointer'
     }
@@ -55,27 +62,24 @@ const useStyles = makeStyles(theme => ({
 
 function MenuItem(props: Props) {
   const styles = useStyles();
-  // const [image, setImage] = useState(false);
 
-  // async function fetchImage() {
-  //   const data = await axios.get(`/fetchImage/${props.imagePath}`)
-  //   // setImage(data)
-  //   // console.log(data['data'])
-  //   setImage(data['data'])
-  // }
   function handleImageClick() {
     props.editItem(props.name);
   }
 
-  useEffect(() => {
-    // fetchImage();
-  }, [])
+  function handleRemoveClicked() {
+    const response = window.confirm("Are you sure you want to delete this item?")
+    if(response) {
+      props.removeItem(props.name);
+    }
+  }
+
   return(
     <div className={styles.itemWrapper}>
       <a onClick={handleImageClick} className={styles.imageAnchor}><img src={`http://localhost:8000/fetchImage/${props.imagePath}`} className={styles.itemImage} alt={props.name}/></a>
       <div className={styles.left}>
         <div className={styles.leftText}>
-          <p className={styles.bigText}>{props.name} <span>${props.price}</span></p>
+          <p className={styles.bigText}>{props.name} <span>${props.price}<a onClick={handleRemoveClicked} className={styles.remove}>X</a></span></p>
           <p className={styles.smallText}>{props.description}</p>
         </div>
       </div>
