@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputStyle: {
     width: '365px',
+    background: 'white'
   },
   headerText: {
     fontSize: '16pt',
@@ -39,6 +40,9 @@ const useStyles = makeStyles(theme => ({
     fontStyle: 'italic',
     margin: '0px',
     marginTop: '5px'
+  },
+  pageWrapper: {
+    height: '75vh'
   }
 }));
 
@@ -51,10 +55,11 @@ function AdminLogin() {
 
   async function loginPressed() {
     const { data } = await axios.post('/processLogin', {username, password})
-    console.log("response:", data)
+    console.log("Data:", data)
     if(data.success != 1) changeError(true);
     else {
       localStorage.setItem('loggedIn', true);
+      localStorage.setItem('validationKey', data.id)
       changeError(false);
       changeRedirect(true);
     }
@@ -67,7 +72,7 @@ function AdminLogin() {
   }
 
   return(
-    <div>
+    <div className={styles.pageWrapper}>
       {redirect && <Redirect to='/admin' />}
       <Card className={styles.loginBox} raised>
       <CardMedia

@@ -17,7 +17,8 @@ const userInfo = require('./userInfo.json');
 const app = express();
 
 initializePassport(passport,
-  email => fetchUserInfo(email)
+  email => fetchUserInfo(email),
+  id => fetchUserInfoById(id)
 )
 
 const port = process.env.PORT || 8000
@@ -28,14 +29,25 @@ app.use(expressSession({
   secret:process.env.SESSION_SECRET,
   resave:false,
   saveUninitialized:false,
-  cookie:{maxAge:1*24*60*60*1000}
+  cookie:{
+    maxAge:1*24*60*60*1000,
+    secure: false
+  }
 }));
+app.set('trust proxy', 1);
 app.use(pino)
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use('/dist', express.static(path.join(__dirname, './client/dist/')));
 
 app.get('/test_route', (request, response) => {
+  console.log(request.user)
+  if(request.isAuthenticated()) {
+    console.log('User is authenticated')
+  }
+  else {
+    console.log("user not authenticated")
+  }
   const name = request.query.name || 'No Name';
   return response.json({message: 'Updated state message'})
 });
@@ -45,7 +57,10 @@ app.post('/processLogin', (request, response, next) => {
   passport.authenticate('local', function(error, user, info) {
     if(error) return next(error)
     if(!user) return response.json({success: 0, message: 'Login unsuccessful'})
-    return response.json({success: 1, message: 'Login successful', id: user.id})
+    request.login(user, function(error) {
+      if(error) return next(error);
+      return response.json({success: 1, message: 'Login successful', id: user.id})
+    })
   })(request, response, next);
 })
 
@@ -60,7 +75,9 @@ app.get('/fetchMenu', (request, response) => {
 });
 
 app.post('/editMenu', (request, response) => {
-  const menuItem = request.body.item;
+  //This request.user is always there, for easy authentication
+  // console.log(request.user)
+  // const menuItem = request.body.item;
   //Authenticate
 })
 
@@ -82,6 +99,11 @@ function jsonReader(filePath, callback) {
 
 function fetchUserInfo(username) {
   if(username !== userInfo.username) return false;
+  return userInfo;
+}
+
+function fetchUserInfoById(id) {
+  if(id !== userInfo.id) return false;
   return userInfo;
 }
 
