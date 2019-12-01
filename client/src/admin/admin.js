@@ -74,9 +74,9 @@ function Admin() {
   }
 
   useEffect(() => {
-    // checkAuthentication();
+    checkAuthentication();
     fetchMenu();
-  })
+  }, [])
 
   function addItemPressed() {
     console.log("pressing")
