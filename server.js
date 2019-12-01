@@ -140,12 +140,10 @@ app.post('/editItem/withoutImage/:originalName', (request, response) => {
     return response.json({success: -1, message: 'User not authorized to perform this action'});
   }
 
-
   jsonReader('./menu.json', (data) => {
     if(!(originalName in data))
       return response.json({success: 0, message: 'Item not in menu.'})
     const information = request.body;
-    console.log(information)
 
     if(information.name === originalName) {
       data[originalName].description = information.description;
@@ -169,6 +167,47 @@ app.post('/editItem/withoutImage/:originalName', (request, response) => {
   })
 })
 
+app.post('/editItem/withImage/:originalName', upload.single('image'), (request, response) => {
+  const originalName = request.params.originalName;
+  console.log("originalName:", originalName)
+  if(!checkAuthentication(request)) {
+    return response.json({success: -1, message: 'User not authorized to perform this action'});
+  }
+
+  jsonReader('./menu.json', (data) => {
+    if(!(originalName in data))
+      return response.json({success: 0, message: 'Item not in menu.'})
+    const information = request.body;
+
+    const originalImagePath = data[originalName].imagePath;
+    fs.unlink(`./images/${originalImagePath}`, (err) => {
+      if(err) {
+        console.log("Error deleting file", originalImagePath)
+      }
+    })
+    if(information.name === originalName) {
+      data[originalName].description = information.description;
+      data[originalName].price = information.price;
+      data[originalName].imagePath = request.file.filename;
+
+    } else {
+      delete data[originalName];
+      data[information.name] = {
+        price: information.price,
+        description: information.description,
+        imagePath: request.file.filename
+      }
+    }
+    fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
+      if(err){
+        return response.json({success: 0, message: 'Error writing to edited to storage.'})
+      }
+      else return response.json({success: 1, message: `Successfully edited ${originalName} from menu`, item: originalName});
+    });
+  })
+});
+
+
 app.post('/removeItem', (request, response) => {
   if(!checkAuthentication(request)) {
     return response.json({success: -1, message: 'User not authorized to perform this action'});
@@ -178,6 +217,14 @@ app.post('/removeItem', (request, response) => {
     if(!(request.body.name in data)) {
       return response.json({success: 0, message: 'Item not in menu.'})
     }
+    const imagePath = data[request.body.name].imagePath;
+
+    fs.unlink(`./images/${imagePath}`, (err) => {
+      if(err) {
+        console.log("Error deleting file", originalImagePath)
+      }
+    })
+
     delete data[request.body.name];
     fs.writeFile('./menu.json', JSON.stringify(data, null, 2), (err) => {
       if(err){

@@ -225,9 +225,7 @@ function Admin() {
   }
 
   async function removeItem(name) {
-    console.log("Removing item:", name)
     const { data } = await axios.post('/removeItem', {name});
-    console.log(data);
     fetchMenu();
   }
 
@@ -260,8 +258,6 @@ function Admin() {
 
         const response = await axios.post(`/editItem/withImage/${editItem}`, sendData);
         data = response.data;
-
-        console.log(data);
       }
 
       if(data.success === 1) {
@@ -298,50 +294,50 @@ function Admin() {
           onChange={handleNameChange}
           name='itemName'
           value={itemName}
-        />
-        <TextField
-          required
-          error={priceErr && price===''}
-          helperText='Price is required (X.XX)'
-          id="outlined-number"
-          label="Price ($)"
-          type="number"
-          className={styles.inputStyle}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-          variant="outlined"
-          value={price}
-          onChange={handlePriceChange}
-        />
-        <TextField
-          required
-          error={descErr && description===''}
-          helperText='Description of the food item. Also required'
-          id="outlined-textarea"
-          label="Description"
-          placeholder="Description of Item"
-          multiline
-          className={styles.inputStyle}
-          margin="normal"
-          variant="outlined"
-          value={description}
-          onChange={handleDescriptionChange}
-        />
-        <div className={styles.uploadImageButton}>
-          <Button variant='contained' component='label'>
-            Upload Image
-            <input type='file' style={{display: 'none'}} accept="image/*" name='image' onChange={handleImageChange}/>
-          </Button>
-          { image && <p className={styles.imageName}>{truncatedFileName()}</p> }
-          { imgErr && !image && <p className={styles.imageErrorMsg}>Image is required.</p>}
-        </div>
-        
-        <div className={styles.buttonDivStyle}>
-          <Button variant="contained" className={styles.buttonStyle} onClick={cancelPressed}>CANCEL</Button>
-          <Button variant="contained" color="primary" className={styles.buttonStyle} onClick={createPressed}>CREATE</Button>
-        </div>
+          />
+          <TextField
+            required
+            error={priceErr && price===''}
+            helperText='Price is required (X.XX)'
+            id="outlined-number"
+            label="Price ($)"
+            type="number"
+            className={styles.inputStyle}
+            InputLabelProps={{
+              shrink: true,
+            }}
+            margin="normal"
+            variant="outlined"
+            value={price}
+            onChange={handlePriceChange}
+          />
+          <TextField
+            required
+            error={descErr && description===''}
+            helperText='Description of the food item. Also required'
+            id="outlined-textarea"
+            label="Description"
+            placeholder="Description of Item"
+            multiline
+            className={styles.inputStyle}
+            margin="normal"
+            variant="outlined"
+            value={description}
+            onChange={handleDescriptionChange}
+          />
+          <div className={styles.uploadImageButton}>
+            <Button variant='contained' component='label'>
+              Upload Image
+              <input type='file' style={{display: 'none'}} accept="image/*" name='image' onChange={handleImageChange}/>
+            </Button>
+            { image && <p className={styles.imageName}>{truncatedFileName()}</p> }
+            { imgErr && !image && <p className={styles.imageErrorMsg}>Image is required.</p>}
+          </div>
+          
+          <div className={styles.buttonDivStyle}>
+            <Button variant="contained" className={styles.buttonStyle} onClick={cancelPressed}>CANCEL</Button>
+            <Button variant="contained" color="primary" className={styles.buttonStyle} onClick={createPressed}>CREATE</Button>
+          </div>
         </div>
       </Modal>
     );
