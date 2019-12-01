@@ -11,6 +11,7 @@ const fs = require('fs');
 const initializePassport = require('./passport-config');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 
 const userInfo = require('./userInfo.json');
 
@@ -36,7 +37,33 @@ app.use(expressSession({
 app.use(pino)
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('./images', express.static(path.join(__dirname, './images')));
 // app.use('/dist', express.static(path.join(__dirname, './client/dist/')));
+
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, callback) => {
+    callback(null, './images/');
+  },
+  filename: (req, file, callback) => {
+    callback(null, `${Date.now()}-${file.originalname}`);
+  }
+})
+
+const fileFilter = (req, file, callback) => {
+  if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+    callback(null, itemValidations(req.body));
+  } else callback(null, false);
+}
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+});
 
 app.get('/test_route', (request, response) => {
   console.log(request.user)
@@ -78,13 +105,16 @@ app.get('/fetchMenu', (request, response) => {
   })
 });
 
-app.post('/addItem', (request, response) => {
+app.post('/addItem', upload.single('image'), (request, response) => {
   if(!checkAuthentication(request)) {
     return response.json({success: -1, message: 'User not authorized to perform this action'});
   }
   console.log(request.body);
+  console.log(request.file);
+  
   return response.json({success: 1, message: 'Successfully added item to menu'});
 })
+
 
 app.post('/editMenu', (request, response) => {
   //This request.user is always there, for easy authentication
@@ -124,6 +154,12 @@ function checkAuthentication(request) {
     return true;
   } 
   return false;
+}
+
+function itemValidations(fields) {
+  if(fields.name === '' || fields.price === '' || fields.description === '')
+    return false
+  return true;
 }
 
 function hashPassword(input) {

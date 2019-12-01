@@ -56,6 +56,10 @@ const useStyles = makeStyles(theme => ({
     marginLeft: '20px',
     fontStyle: 'italic',
     color: 'red'
+  },
+  mainError: {
+    fontStyle: 'italic',
+    color: 'red'
   }
 }));
 
@@ -75,6 +79,7 @@ function Admin() {
   const [priceErr, changePriceErr] = useState(false);
   const [descErr, changeDescErr] = useState(false)
   const [imgErr, changeImgErr] = useState(false)
+  const [mainErr, showMainErr] = useState(false);
 
   async function testAxios() {
     const {data} = await axios.get('/test_route');
@@ -132,6 +137,8 @@ function Admin() {
     changePriceErr(false)
     changeDescErr(false);
     changeImgErr(false);
+
+    showMainErr(false);
   }
 
   async function createPressed() {
@@ -146,11 +153,23 @@ function Admin() {
       return;
     }
     if(hasErr === false){
-      // changeOverlayState(false);
       console.log("Image", image)
-      const { data } = await axios.post('/addItem', {name: itemName, price, description, image});
+      let sendData = new FormData();
+      sendData.append('image', image)
+      sendData.append('name', itemName)
+      sendData.append('price', price)
+      sendData.append('description', description);
+      const { data } = await axios.post('/addItem', sendData)
       console.log(data)
-      // resetInputs();
+
+      data.success = -1;
+      if(data.success === 1) {
+        resetInputs();
+        changeOverlayState(false);
+      }
+      else {
+        showMainErr(true);
+      }
     }
     
   }
@@ -175,6 +194,7 @@ function Admin() {
       <Modal open={showOverlay} style={{display:'flex',alignItems:'center',justifyContent:'center'}}>
         <div style={modalStyle} className={styles.modalStyle}>
           <p className={styles.headerText}>Add Item</p>
+          { mainErr && <p className={styles.mainError}>There was an error completing this request.</p> }
           <TextField
           required
           error={nameErr && itemName===''}
