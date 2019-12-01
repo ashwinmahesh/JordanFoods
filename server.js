@@ -26,6 +26,7 @@ const port = process.env.PORT || 8000
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.cookieParser('Secret12Kookie!'));
 app.use(expressSession({
   secret:process.env.SESSION_SECRET,
   resave:false,
