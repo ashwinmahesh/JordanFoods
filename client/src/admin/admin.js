@@ -19,10 +19,15 @@ function Admin() {
     console.log(data);
   }
 
-  useEffect(() => {
-    // testAxios();
-    if(localStorage.getItem('loggedIn') != 'true')
+  async function checkAuthentication() {
+    const { data } = await axios.get('/checkAuthentication');
+    if(data.success === 0) {
       changeLoginRedirect(true);
+    }
+  }
+
+  useEffect(() => {
+    checkAuthentication();
   })
 
   return(

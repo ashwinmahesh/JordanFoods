@@ -52,6 +52,13 @@ app.get('/test_route', (request, response) => {
   return response.json({message: 'Updated state message'})
 });
 
+app.get('/checkAuthentication', (request, response) => {
+  if(checkAuthentication(request)) {
+    return response.json({success: 1, message: 'User is authenticated'});
+  }
+  return response.json({success: 0, message:'User not authenticated'});
+})
+
 
 app.post('/processLogin', (request, response, next) => {
   passport.authenticate('local', function(error, user, info) {
@@ -69,7 +76,6 @@ app.get('/fetchMenu', (request, response) => {
     if(data === false) {
       return response.json({success: 0, message: "Error reading file"})
     }
-    console.log(data);
     return response.json({success: 1, message: 'Successfully fetched data', menu: data});
   })
 });
@@ -105,6 +111,13 @@ function fetchUserInfo(username) {
 function fetchUserInfoById(id) {
   if(id !== userInfo.id) return false;
   return userInfo;
+}
+
+function checkAuthentication(request) {
+  if(request.isAuthenticated() && request.user.id === userInfo.id) {
+    return true;
+  } 
+  return false;
 }
 
 function hashPassword(input) {

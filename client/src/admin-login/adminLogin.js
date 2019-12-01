@@ -58,8 +58,6 @@ function AdminLogin() {
     console.log("Data:", data)
     if(data.success != 1) changeError(true);
     else {
-      localStorage.setItem('loggedIn', true);
-      localStorage.setItem('validationKey', data.id)
       changeError(false);
       changeRedirect(true);
     }
